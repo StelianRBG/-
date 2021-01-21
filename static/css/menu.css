@@ -1,0 +1,50 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+header{
+	width: 100vw;
+	height: 4vw;
+	background-color: #282828;
+	border-bottom: 1px solid white;
+}
+
+h1{
+	position: absolute;
+	padding: 0.2vw;
+	float: left;
+	margin: 0.3vw;
+	font-family: 'Alfa Slab One', cursive;
+	font-size: 2.5vw;
+	color: #ffffff;
+}
+
+ul{
+	width: auto;
+	float: right;
+	margin-top: 0.5vw;
+}
+
+li{
+	display: inline-block;
+	padding: 0.5vw 1vw;
+	padding-bottom: 0.1vw;
+}
+
+a{
+	text-align: center;
+	color: #ffffff;
+	text-decoration: none;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1.3vw;
+}
+
+a:hover{
+	color: #ffc107;
+	transition: 0.5s;
+}
+
+body{
+	background-color: #303030;
+}
