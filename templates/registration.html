@@ -12,11 +12,15 @@
 			<img src="{{url_for('static', filename='images/user.png')}}" class="avatar">
 			<h1>Sign Up</h1>
 			<br>
-			<form>
+			{% if mesage %}
+				<h3 style="color: red; text-align: center;">{{mesage}}</h3>
+				<br>
+			{% endif %}
+			<form method="POST">
 				<p>Username:</p>
-				<input type="text" placeholder="Ener Username" required>
+				<input type="text" placeholder="Ener Username" name="username" required>
 				<p>Password:</p>
-				<input type="password" placeholder="Ener Password" required>
+				<input type="password" placeholder="Ener Password" name="password" required>
 				<input type="submit" value="Sign In">
 				<br>
 				<a href="/signin"><i class="fa fa-sign-in" aria-hidden="true"></i> I already have an account!</a>
