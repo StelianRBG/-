@@ -11,18 +11,13 @@ class User(db.Model):
     username = db.Column(db.String, unique=True, nullable = False)
     password = db.Column(db.String, unique=True, nullable = False)
 
-class Logged(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    username = db.Column(db.String, unique=True, nullable = False)
-
 @app.route("/")
 def main():
     return render_template("home.html")
 
 @app.route("/logged")
 def logged_page():
-    user = Logged.query.order_by(Logged.id.desc()).first()
-    return render_template("logged.html", profile=user.username)
+    return render_template("logged.html")
 
 @app.route("/signin", methods=['GET', 'POST'])
 def log_page():
@@ -36,8 +31,6 @@ def log_page():
         if user is None:
             return render_template("login.html", mesage="Try agai! This profile is not exists!")
         else:
-            logged = Logged(username=username)
-            db.session.add(logged)
             return redirect('/logged')
 
     
@@ -54,8 +47,6 @@ def reg_page():
             password = hashlib.sha256(password.encode('utf-8')).hexdigest()
             record = User(username=username, password=password)
             db.session.add(record)
-            logged = Logged(username=username)
-            db.session.add(logged)
             db.session.commit()
             return redirect('/logged')
         else:
