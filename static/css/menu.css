@@ -5,32 +5,33 @@
 
 header{
 	width: 100vw;
-	height: 4vw;
+	height: 8.5vh;
 	background-color: #282828;
 	border-bottom: 1px solid white;
 }
 
 h1{
 	position: absolute;
-	padding: 0.2vw;
-	float: left;
-	margin: 0.3vw;
+	left: 1vw;
+	top: 1vh;
 	font-family: 'Alfa Slab One', cursive;
 	font-size: 2.5vw;
 	color: #ffffff;
 }
 
-
 ul{
 	width: auto;
-	float: right;
-	margin-top: 0.5vw;
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	right: 0.5vw;
+	margin-top: 1vh;
 }
 
 li{
 	display: inline-block;
 	padding: 0.5vw 1vw;
-	padding-bottom: 0.1vw;
+	padding-bottom: 0.5vh;
 }
 
 a{
@@ -49,4 +50,30 @@ a:hover{
 
 body{
 	background-color: #303030;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+div{
+	background: #353535;
+	background-size: contain;
+	width: 30vw;
+	height: 91.3vh;
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+h2{
+	margin-top: 1wh;
+	font-size: 5vh;
+	font-family: 'Open Sans', sans-serif;
+	color: #fff;
+	font-weight: bold;
+	background: #292929;
+	border: 1px solid white;
+	height: 10vh;
+	padding-top: 2.5vh;
 }

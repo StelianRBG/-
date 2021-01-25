@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, flash 
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
-from flask_login import LoginManager, UserMixin, login_user, current_user
+from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Thisissecret'
@@ -24,6 +24,7 @@ def load_user(user_id):
 
 @app.route("/")
 def main():
+    logout_user()
     return render_template("home.html")
 
 @app.route("/logged")

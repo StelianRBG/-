@@ -13,18 +13,18 @@ body{
 	width: 30vw ;
 	background:#282828;
 	color: #fff;
-	top: 25vw;
+	top: 51vh;
 	left: 60vw;
 	position: absolute;
-	transform: translate(-15vw,-18vw);
+	transform: translate(-15vw,-19vw);
 	box-sizing: border-box;
-	padding: 4vw 3vw;
+	padding: 5vw 3vw;
 }
 
 .avatar{
 	width: 7vw;
 	position: absolute;
-	top: -3.5vw;
+	top: -6vh;
 	right: 11.4vw;
 }
 
@@ -41,7 +41,7 @@ h1{
 
 .loginbox input{
 	width: 25vw;
-	margin-bottom: 2vw;
+	margin-bottom: 2vh;
 }
 
 .loginbox input[type = "text"], input[type = "password"]{
@@ -49,7 +49,7 @@ h1{
 	border-bottom: 1px solid #fff;
 	background: transparent;
 	outline: none;
-	height: 4vw;
+	height: 8vh;
 	color: #fff;
 	font-size: 0.9vw;
 }
@@ -58,7 +58,7 @@ h1{
 {
 	border: none;
 	outline: none;
-	height: 3vw;
+	height: 7vh;
 	background: #fb2525;
 	color: #fff;
 	font-size: 1vw;
@@ -74,7 +74,7 @@ h1{
 .loginbox a{
 	text-decoration: none;
 	font-size: 0.8vw;
-	line-height: 0.1vw;
+	line-height: 0.1vh;
 	color: darkgrey;
 }
 
