@@ -4,45 +4,55 @@ import hashlib
 from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user
 from datetime import datetime
 
+#app configoration
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Thisissecret'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 
+#login_manager
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+# user 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String, nullable = False)
     password = db.Column(db.String, nullable = False)
 
+# category
 class Category(db.Model):
-	id = db.Column(db.Integer, primary_key = True)
-	name = db.Column(db.String(30), nullable = False)
-	
-	
-class Post(db.Model):
-	id = db.Column(db.Integer, primary_key = True)
-	heading = db.Column(db.String(100), nullable = False)
-	content = db.Column(db.String(500), nullable = False)
-	user = db.Column(db.String, nullable = True)
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String, nullable = False)
+    description = db.Column(db.String, nullable = False)
+    user = db.Column(db.String, nullable = True)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
+#post
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    heading = db.Column(db.String, nullable = False)
+    content = db.Column(db.String, nullable = False)
+    user = db.Column(db.String, nullable = True)
+
+#login_manager
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
+#home page
 @app.route("/")
 def main():
     logout_user()
     return render_template("home.html")
 
+#logged page
 @app.route("/logged")
 def logged_page():
     return render_template("logged.html", profile = current_user.username)
 
+#signin page
 @app.route("/signin", methods=['GET', 'POST'])
 def log_page():
     if request.method == 'GET':
@@ -61,9 +71,8 @@ def log_page():
         else:
             login_user(user)
             return redirect('/logged')
-
-    
-
+  
+#signup page
 @app.route("/signup", methods=['GET', 'POST'])
 def reg_page():
     if request.method == 'GET':
@@ -90,7 +99,6 @@ def reg_page():
             flash('Try agai! This username is already used!')
             return redirect('/signup')
 
-
 # nov post 
 @app.route('/posts/new', methods = ['GET', 'POST'])
 def new_post():
@@ -116,7 +124,7 @@ def new_cat():
 		db.session.commit()
 		return redirect("/")
 
-
+#main
 if __name__ == "__main__":
     db.create_all()
     app.run(debug=True)
