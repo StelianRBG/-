@@ -18,15 +18,15 @@ login_manager.login_view = 'login'
 # user 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    username = db.Column(db.String, nullable = False)
-    password = db.Column(db.String, nullable = False)
+    username = db.Column(db.String(20), nullable = False)
+    password = db.Column(db.String(32), nullable = False)
 
 # category
 class Topic(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String, nullable = False)
+    name = db.Column(db.String(50), nullable = False)
     description = db.Column(db.String(200), nullable = False)
-    user = db.Column(db.String, nullable = False)
+    user = db.Column(db.String(20), nullable = False)
     timestamp = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
 
 #post
@@ -63,10 +63,16 @@ def log_page():
         return render_template("login.html")
     else:
         username = request.form['username']
+        if len(username) > 20:
+            flash("Try agai! Password is must be at most 20 characters!")
+            return redirect('/signin')
         password = request.form['password']
         if len(password) < 8:
             flash("Try agai! Password is must be at least 8 characters!")
-            return redirect('/signup')
+            return redirect('/signin')
+        if len(password) > 32:
+            flash("Try agai! Password is must be at most 32 characters!")
+            return redirect('/signin')
         password = hashlib.sha256(password.encode('utf-8')).hexdigest()
         user = User.query.filter_by(username = username, password = password).first()
         if not user:
@@ -83,6 +89,9 @@ def reg_page():
         return render_template("registration.html")
     else:
         username = request.form['username']
+        if len(username) > 20:
+            flash("Try agai! Password is must be at most 20 characters!")
+            return redirect('/signup')
         user = User.query.filter_by(username = username).first()
         if not user:
             password = request.form['password']
@@ -92,6 +101,9 @@ def reg_page():
                 return redirect('/signup')
             if len(password) < 8:
                 flash("Try agai! Password is must be at least 8 characters!")
+                return redirect('/signup')
+            if len(password) > 32:
+                flash("Try agai! Password is must be at most 32 characters!")
                 return redirect('/signup')
             password = hashlib.sha256(password.encode('utf-8')).hexdigest()
             record = User(username=username, password=password)
