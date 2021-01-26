@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
 from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Thisissecret'
@@ -49,6 +50,9 @@ def log_page():
     else:
         username = request.form['username']
         password = request.form['password']
+        if len(password) < 8:
+            flash("Try agai! Password is must be at least 8 characters!")
+            return redirect('/signup')
         password = hashlib.sha256(password.encode('utf-8')).hexdigest()
         user = User.query.filter_by(username = username, password = password).first()
         if not user:
@@ -72,6 +76,9 @@ def reg_page():
             confirm = request.form['confirm']
             if password != confirm:
                 flash("Try agai! Password is not confirmed!")
+                return redirect('/signup')
+            if len(password) < 8:
+                flash("Try agai! Password is must be at least 8 characters!")
                 return redirect('/signup')
             password = hashlib.sha256(password.encode('utf-8')).hexdigest()
             record = User(username=username, password=password)
