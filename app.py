@@ -22,12 +22,12 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String, nullable = False)
 
 # category
-class Category(db.Model):
+class Topic(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String, nullable = False)
-    description = db.Column(db.String, nullable = False)
-    user = db.Column(db.String, nullable = True)
-    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    description = db.Column(db.String(200), nullable = False)
+    user = db.Column(db.String, nullable = False)
+    timestamp = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
 
 #post
 class Post(db.Model):
@@ -45,12 +45,16 @@ def load_user(user_id):
 @app.route("/")
 def main():
     logout_user()
-    return render_template("home.html")
+    return render_template("home.html", categories = Topic.query.all())
 
 #logged page
-@app.route("/logged")
+@app.route("/logged", methods=['GET', 'POST'])
 def logged_page():
-    return render_template("logged.html", profile = current_user.username)
+    if request.method == 'GET':
+        record = Topic(name = "First", description = "It is first", user = current_user.username)
+        db.session.add(record)
+        db.session.commit()
+        return render_template("logged.html", profile = current_user.username, categories = Topic.query.all())
 
 #signin page
 @app.route("/signin", methods=['GET', 'POST'])
@@ -98,7 +102,7 @@ def reg_page():
         else:
             flash('Try agai! This username is already used!')
             return redirect('/signup')
-
+"""
 # nov post 
 @app.route('/posts/new', methods = ['GET', 'POST'])
 def new_post():
@@ -123,7 +127,7 @@ def new_cat():
 		db.session.add(category)
 		db.session.commit()
 		return redirect("/")
-
+"""
 #main
 if __name__ == "__main__":
     db.create_all()

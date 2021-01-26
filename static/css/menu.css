@@ -57,7 +57,7 @@ body{
 div{
 	background: #353535;
 	background-size: contain;
-	width: 30vw;
+	width: 40vw;
 	height: 91.3vh;
 	position: absolute;
 	margin-left: auto;
@@ -77,3 +77,27 @@ h2{
 	height: 10vh;
 	padding-top: 2.5vh;
 }
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+  }
+  
+  td, th {
+	border-bottom: 1px solid #000;
+	text-align: left;
+	padding: 8px;
+  }
+  
+  th{
+	  background-color: #fb2525;
+	  border-right: 1px solid #000;
+  }
+
+  tr:nth-child(even) {
+	background-color: #fff;
+  }
+
+  tr:nth-child(odd){
+	  background-color: #fff;
+  }

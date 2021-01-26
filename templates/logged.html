@@ -20,8 +20,28 @@
 	</header>
 	<body>
 		<div >
-			<h2>Themes:</h2>
-			<br>
+			<h2>Topics:</h2>
+			<table class="styled-table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Description</th> 
+						<th>User</th>
+						<th>Time stamp</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for category in categories %}
+						<tr>
+							<td>{{category.name}}</td>
+							<td>{{category.description}}</td>
+							<td>{{category.user}}</td>
+							<td>{{category.timestamp}}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+				
+			</table>
 		</div>
 	</body>
 </html>
