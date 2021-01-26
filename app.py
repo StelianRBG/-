@@ -17,6 +17,17 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String, nullable = False)
     password = db.Column(db.String, nullable = False)
 
+class Category(db.Model):
+	id = db.Column(db.Integer, primary_key = True)
+	name = db.Column(db.String(30), nullable = False)
+	
+	
+class Post(db.Model):
+	id = db.Column(db.Integer, primary_key = True)
+	heading = db.Column(db.String(100), nullable = False)
+	content = db.Column(db.String(500), nullable = False)
+	user = db.Column(db.String, nullable = True)
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -71,6 +82,32 @@ def reg_page():
         else:
             flash('Try agai! This username is already used!')
             return redirect('/signup')
+
+
+# nov post 
+@app.route('/posts/new', methods = ['GET', 'POST'])
+def new_post():
+	if request.method == 'GET':
+		return render_template('newpost.html')
+	elif request.method == 'POST':
+		header = request.form['name']
+		content = request.form['content']
+		record = Post(heading = header, content = content, user = "hmm")
+		db.session.add(record)
+		db.session.commit()
+		return redirect('/')
+	
+# nov komentar
+@app.route('/cat/new', methods = ['GET', 'POST'])
+def new_cat():
+	if request.method == 'GET':
+		return render_template('newcat.html')
+	elif request.method == 'POST':
+		name = request.form["name"]
+		category = Category(name = name)
+		db.session.add(category)
+		db.session.commit()
+		return redirect("/")
 
 
 if __name__ == "__main__":
