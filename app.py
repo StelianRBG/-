@@ -4,22 +4,26 @@ import hashlib
 from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user
 from datetime import datetime
 
+
 #app configoration
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Thisissecret'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 
+
 #login_manager
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
 
 # user 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(20), nullable = False)
     password = db.Column(db.String(32), nullable = False)
+
 
 # category
 class Topic(db.Model):
@@ -29,6 +33,7 @@ class Topic(db.Model):
     user = db.Column(db.String(20), nullable = False)
     timestamp = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
 
+
 #post
 class Post(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
@@ -37,21 +42,25 @@ class Post(db.Model):
 	topic = db.Column(db.Integer, nullable = True)
 	user = db.Column(db.String, nullable = True)
 	timestamp = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
-	
-admin = User(username = 'admin', password =  hashlib.sha256("adminadmin".encode('utf-8')).hexdigest()) 
+
+
+admin = User(username = 'admin', password =  hashlib.sha256("adminadmin".encode('utf-8')).hexdigest())
 db.session.add(admin)
 db.session.commit()
+
 	
 #login_manager
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
 #home page
 @app.route("/")
 def main():
 	logout_user()
 	return render_template("home.html", topics = Topic.query.all())
+
 
 #logged page
 @app.route("/logged", methods=['GET', 'POST'])
@@ -115,7 +124,19 @@ def list_posts(id):
 		db.session.commit()
 		
 		topic = Topic.query.filter_by(id = id).first()
-		return render_template('loggedposts.html', topic = topic, posts = Post.query.filter_by(topic = id).all())
+		return redirect(url_for('list_posts', id = topic.id))
+
+
+#delete post
+@app.route("/delete/<int:id>")
+def delete(id):
+	obj = Post.query.filter_by(id = id).first()
+	red = obj.topic
+	
+	db.session.delete(obj)
+	db.session.commit()
+	
+	return redirect(url_for('list_posts', id = red))
 
 
 #signup page

@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu.css') }}">
-		<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Open+Sans&display=swap" rel="stylesheet"> 
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+		<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Open+Sans&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<title> &#127968Forum</title>
 	</head>
 	<header>
@@ -19,13 +19,13 @@
 		</nav>
 	</header>
 	<body>
-		<div >
+		<div>
 			<h2>Topics:</h2>
 			<table class="styled-table">
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>Description</th> 
+						<th>Description</th>
 						<th>User</th>
 						<th>Time stamp</th>
 					</tr>
@@ -39,7 +39,7 @@
 							<td>{{topic.timestamp}}</td>
 						</tr>
 					{% endfor %}
-				</tbody>	
+				</tbody>
 			</table>
 		</div>
 	</body>

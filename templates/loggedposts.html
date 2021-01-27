@@ -14,11 +14,14 @@
 
 <h1>{{ topic.name }}</h1>
 {% for post in posts %}
-	<b>Name:</b> {{ post.heading }} 
+	<b>Name:</b> {{ post.heading }}
 	<br/>
-	Author: {{ post.user }} 
+	Author: {{ post.user }}
 	<br/>
-	Content: {{ post.content }} 
+	Content: {{ post.content }}
 	<br/>
+	{% if post.user == current_user.username %}
+		<button><a href = "/delete/{{ post.id }}" >Delete</a></button>
 	<br/>
+	{% endif %}
 {% endfor %}
