@@ -33,7 +33,7 @@
 				<tbody>
 					{% for topic in topics %}
 						<tr>
-							<td>{{topic.name}}</td>
+							<td> <a href = "/topic/{{ topic.id }}"> {{topic.name}} </a> </td>
 							<td>{{topic.description}}</td>
 							<td>{{topic.user}}</td>
 							<td>{{topic.timestamp}}</td>

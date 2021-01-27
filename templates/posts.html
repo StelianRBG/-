@@ -1,0 +1,13 @@
+  
+<title>Posts</title>
+
+<h1>{{ topic.name }}</h1>
+{% for post in posts %}
+	<b>Name:</b> {{ post.heading }} 
+	<br/>
+	Author: {{ post.user }} 
+	<br/>
+	Content: {{ post.content }} 
+	<br/>
+	<br/>
+{% endfor %}

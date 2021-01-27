@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash 
+from flask import Flask, render_template, request, redirect, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
 from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user
@@ -31,11 +31,17 @@ class Topic(db.Model):
 
 #post
 class Post(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    heading = db.Column(db.String, nullable = False)
-    content = db.Column(db.String, nullable = False)
-    user = db.Column(db.String, nullable = True)
-
+	id = db.Column(db.Integer, primary_key = True)
+	heading = db.Column(db.String, nullable = False)
+	content = db.Column(db.String, nullable = False)
+	topic = db.Column(db.Integer, nullable = True)
+	user = db.Column(db.String, nullable = True)
+	timestamp = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
+	
+admin = User(username = 'admin', password =  hashlib.sha256("adminadmin".encode('utf-8')).hexdigest()) 
+db.session.add(admin)
+db.session.commit()
+	
 #login_manager
 @login_manager.user_loader
 def load_user(user_id):
@@ -44,8 +50,8 @@ def load_user(user_id):
 #home page
 @app.route("/")
 def main():
-    logout_user()
-    return render_template("home.html", categories = Topic.query.all())
+	logout_user()
+	return render_template("home.html", topics = Topic.query.all())
 
 #logged page
 @app.route("/logged", methods=['GET', 'POST'])
@@ -64,29 +70,54 @@ def logged_page():
 #signin page
 @app.route("/signin", methods=['GET', 'POST'])
 def log_page():
-    if request.method == 'GET':
-        return render_template("login.html")
-    else:
-        username = request.form['username']
-        if len(username) > 20:
-            flash("Try agai! Password is must be at most 20 characters!")
-            return redirect('/signin')
-        password = request.form['password']
-        if len(password) < 8:
-            flash("Try agai! Password is must be at least 8 characters!")
-            return redirect('/signin')
-        if len(password) > 32:
-            flash("Try agai! Password is must be at most 32 characters!")
-            return redirect('/signin')
-        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        user = User.query.filter_by(username = username, password = password).first()
-        if not user:
-            flash("Try agai! Wrong username or password")
-            return redirect("/signin")
-        else:
-            login_user(user)
-            return redirect('/logged')
-  
+	if request.method == 'GET':
+		return render_template("login.html")
+	else:
+		username = request.form['username']
+		if len(username) > 20:
+			flash("Try agai! Password is must be at most 20 characters!")
+			return redirect('/signin')
+		password = request.form['password']
+		if len(password) < 8:
+			flash("Try agai! Password is must be at least 8 characters!")
+			return redirect('/signin')
+		if len(password) > 32:
+			flash("Try agai! Password is must be at most 32 characters!")
+			return redirect('/signin')
+		password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+		user = User.query.filter_by(username = username, password = password).first()
+		if not user:
+			flash("Try agai! Wrong username or password")
+			return redirect("/signin")
+		else:
+			login_user(user)
+			return redirect('/logged')
+
+
+#outside user sees posts (can't make post)
+@app.route("/see/<int:id>")
+def see_posts(id):
+	topic = Topic.query.filter_by(id = id).first()
+	return render_template('posts.html', topic = topic, posts = Post.query.filter_by(topic = id).all())
+
+
+#logged user sees posts (can make post)
+@app.route("/topic/<int:id>", methods=['GET', 'POST'])
+def list_posts(id):
+	if request.method == 'GET':
+		topic = Topic.query.filter_by(id = id).first()
+		return render_template('loggedposts.html', topic = topic, posts = Post.query.filter_by(topic = id).all())
+	else:
+		header = request.form['name']
+		content = request.form['content']
+		record = Post(heading = header, content = content, topic = id, user = current_user.username)
+		db.session.add(record)
+		db.session.commit()
+		
+		topic = Topic.query.filter_by(id = id).first()
+		return render_template('loggedposts.html', topic = topic, posts = Post.query.filter_by(topic = id).all())
+
+
 #signup page
 @app.route("/signup", methods=['GET', 'POST'])
 def reg_page():
@@ -119,32 +150,7 @@ def reg_page():
         else:
             flash('Try agai! This username is already used!')
             return redirect('/signup')
-"""
-# nov post 
-@app.route('/posts/new', methods = ['GET', 'POST'])
-def new_post():
-	if request.method == 'GET':
-		return render_template('newpost.html')
-	elif request.method == 'POST':
-		header = request.form['name']
-		content = request.form['content']
-		record = Post(heading = header, content = content, user = "hmm")
-		db.session.add(record)
-		db.session.commit()
-		return redirect('/')
-	
-# nov komentar
-@app.route('/cat/new', methods = ['GET', 'POST'])
-def new_cat():
-	if request.method == 'GET':
-		return render_template('newcat.html')
-	elif request.method == 'POST':
-		name = request.form["name"]
-		category = Category(name = name)
-		db.session.add(category)
-		db.session.commit()
-		return redirect("/")
-"""
+			
 #main
 if __name__ == "__main__":
     db.create_all()

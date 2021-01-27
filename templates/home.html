@@ -31,12 +31,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for category in categories %}
+					{% for topic in topics %}
 						<tr>
-							<td>{{category.name}}</td>
-							<td>{{category.description}}</td>
-							<td>{{category.user}}</td>
-							<td>{{category.timestamp}}</td>
+							<td> <a href = "/see/{{ topic.id }}"> {{topic.name}} </a> </td>
+							<td>{{topic.description}}</td>
+							<td>{{topic.user}}</td>
+							<td>{{topic.timestamp}}</td>
 						</tr>
 					{% endfor %}
 				</tbody>	
