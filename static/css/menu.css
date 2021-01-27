@@ -66,6 +66,7 @@ div{
 	right: 0;
 	text-align: center;
 }
+
 h2{
 	margin-top: 1wh;
 	font-size: 5vh;
@@ -77,27 +78,27 @@ h2{
 	height: 10vh;
 	padding-top: 2.5vh;
 }
-table {
+table{
 	font-family: arial, sans-serif;
 	border-collapse: collapse;
 	width: 100%;
-  }
+}
   
-  td, th {
+td, th{
 	border-bottom: 1px solid #000;
 	text-align: left;
 	padding: 8px;
-  }
+}
   
-  th{
+th{
 	background-color: #fb2525;
 	border-right: 1px solid #000;
-  }
+}
 
-  tr:nth-child(even) {
+tr:nth-child(even){
 	background-color: #fff;
-  }
+}
 
-  tr:nth-child(odd){
+tr:nth-child(odd){
 	background-color: #fff;
-  }
+}
