@@ -50,11 +50,16 @@ def main():
 #logged page
 @app.route("/logged", methods=['GET', 'POST'])
 def logged_page():
-    if request.method == 'GET':
-        record = Topic(name = "First", description = "It is first", user = current_user.username)
-        db.session.add(record)
-        db.session.commit()
-        return render_template("logged.html", profile = current_user.username, categories = Topic.query.all())
+	if request.method == 'GET':
+		return render_template("logged.html", profile = current_user.username, topics = Topic.query.all())
+	else:
+		name = request.form['name']
+		desc = request.form['desc']
+		record = Topic(name = name, description = desc, user = current_user.username)
+		db.session.add(record)
+		db.session.commit()
+		return redirect('/logged')
+
 
 #signin page
 @app.route("/signin", methods=['GET', 'POST'])

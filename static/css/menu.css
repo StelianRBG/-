@@ -90,8 +90,8 @@ table {
   }
   
   th{
-	  background-color: #fb2525;
-	  border-right: 1px solid #000;
+	background-color: #fb2525;
+	border-right: 1px solid #000;
   }
 
   tr:nth-child(even) {
@@ -99,5 +99,5 @@ table {
   }
 
   tr:nth-child(odd){
-	  background-color: #fff;
+	background-color: #fff;
   }

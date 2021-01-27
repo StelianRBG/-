@@ -31,17 +31,27 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for category in categories %}
+					{% for topic in topics %}
 						<tr>
-							<td>{{category.name}}</td>
-							<td>{{category.description}}</td>
-							<td>{{category.user}}</td>
-							<td>{{category.timestamp}}</td>
+							<td>{{topic.name}}</td>
+							<td>{{topic.description}}</td>
+							<td>{{topic.user}}</td>
+							<td>{{topic.timestamp}}</td>
 						</tr>
 					{% endfor %}
 				</tbody>
 				
 			</table>
 		</div>
+		
+		<form method="post" class="new_topic" >
+			<label>Name</label>
+			<input name="name"/>
+			</br>
+			<label>Description</label>
+			<input name="desc"/>
+			</br>
+			<button type="submit">Submit</button>
+		</form>
 	</body>
 </html>
