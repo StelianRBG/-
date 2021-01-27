@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
-from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user
+from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
 from datetime import datetime
 
 
@@ -18,14 +18,14 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 
-# user 
+#user 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(20), nullable = False)
     password = db.Column(db.String(32), nullable = False)
 
 
-# category
+#category
 class Topic(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(50), nullable = False)
@@ -43,12 +43,12 @@ class Post(db.Model):
 	user = db.Column(db.String, nullable = True)
 	timestamp = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
 
-
+"""
 admin = User(username = 'admin', password =  hashlib.sha256("adminadmin".encode('utf-8')).hexdigest())
 db.session.add(admin)
 db.session.commit()
+"""
 
-	
 #login_manager
 @login_manager.user_loader
 def load_user(user_id):
@@ -64,6 +64,7 @@ def main():
 
 #logged page
 @app.route("/logged", methods=['GET', 'POST'])
+@login_required
 def logged_page():
 	if request.method == 'GET':
 		return render_template("logged.html", profile = current_user.username, topics = Topic.query.all())
@@ -112,6 +113,7 @@ def see_posts(id):
 
 #logged user sees posts (can make post)
 @app.route("/topic/<int:id>", methods=['GET', 'POST'])
+@login_required
 def list_posts(id):
 	if request.method == 'GET':
 		topic = Topic.query.filter_by(id = id).first()
@@ -129,6 +131,7 @@ def list_posts(id):
 
 #delete post
 @app.route("/delete/<int:id>")
+@login_required
 def delete(id):
 	obj = Post.query.filter_by(id = id).first()
 	red = obj.topic
