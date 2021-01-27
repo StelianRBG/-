@@ -1,15 +1,35 @@
-  
-<title>Posts</title>
-
-<h1>{{ topic.name }}</h1>
-{% for post in posts %}
-	<b>Name:</b>{{post.heading}}
-	<br/>
-	Author:{{post.user}}
-	<br/>
-	Content:{{post.content}}
-	<br/>
-	Timestamp:{{post.timestamp.strftime("%d %b %y %X")}}
-	<br/>
-	<br/>
-{% endfor %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu.css') }}">
+		<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Open+Sans&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<title>&#128221Post</title>
+	</head>
+	<header>
+		<h1>FORUM</h1>
+		<nav>
+			<ul>
+				<li><a href="/"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
+				<li><a href="/signin"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
+				<li><a href="/signup"><i class="fa fa-user-plus" aria-hidden="true"></i>Sign Up</a></li>
+			</ul>
+		</nav>
+	</header>
+	<body>
+		<h3>{{ topic.name }}</h3>
+		{% for post in posts %}
+			Author:{{post.user}}
+			<br/>
+			Content:{{post.content}}
+			<br/>
+			Timestamp:{{post.timestamp.strftime("%d %b %y %X")}}
+			<br>
+			Update on: {{post.updateon.strftime("%d %b %y %X")}}
+			<br/>
+			<br/>
+		{% endfor %}
+	</body>
+</html>

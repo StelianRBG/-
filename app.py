@@ -37,11 +37,11 @@ class Topic(db.Model):
 #post
 class Post(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
-	heading = db.Column(db.String, nullable = False)
 	content = db.Column(db.String, nullable = False)
 	topic = db.Column(db.Integer, nullable = True)
 	user = db.Column(db.String, nullable = True)
 	timestamp = db.Column(db.DateTime, nullable = False, default = datetime.now())
+	updateon = db.Column(db.DateTime, nullable = False, default = datetime.now())
 
 
 #login_manager
@@ -66,6 +66,11 @@ def logged_page():
 	else:
 		name = request.form['name']
 		desc = request.form['desc']
+		if(len(name) > 50 or len(desc) > 200):
+			flash("Your input is invalid!")
+			return redirect('/logged')
+		if len(desc) == 0:
+			desc = "Nothing"
 		record = Topic(name = name, description = desc, user = current_user.username)
 
 		db.session.add(record)
@@ -147,11 +152,10 @@ def see_posts(id):
 def list_posts(id):
 	if request.method == 'GET':
 		topic = Topic.query.filter_by(id = id).first()
-		return render_template('loggedposts.html', topic = topic, posts = Post.query.filter_by(topic = id).all())
+		return render_template('loggedposts.html', topic = topic, posts = Post.query.filter_by(topic = id).all(), profile = current_user.username)
 	else:
-		header = request.form['name']
 		content = request.form['content']
-		record = Post(heading = header, content = content, topic = id, user = current_user.username)
+		record = Post(content = content, topic = id, user = current_user.username)
 		db.session.add(record)
 		db.session.commit()
 
@@ -165,12 +169,14 @@ def list_posts(id):
 def update(id):
 	post = Post.query.filter_by(id = id).first()
 	red = post.topic
-
+	topic = Topic.query.filter_by(id = red).first()
 	if request.method == 'GET':
 		return render_template('update.html', post = post)
 	else:
-		post.heading = request.form['new_name']
 		post.content = request.form['new_content']
+		post.updateon = datetime.now()
+		db.session.commit()
+		topic.timestamp = datetime.now()
 		db.session.commit()
 		return redirect(url_for('list_posts', id = red))
 

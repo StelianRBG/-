@@ -9,7 +9,7 @@
 		<title> &#127968Forum</title>
 	</head>
 	<header>
-		<h1>FORUM</h1>
+		<h1 class="forum">FORUM</h1>
 		<nav>
 			<ul>
 				<li><a href="/logged"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
@@ -19,15 +19,15 @@
 		</nav>
 	</header>
 	<body>
-		<div >
+		<div class="topics" style="right: 30vw;">
 			<h2>Topics:</h2>
 			<table class="styled-table">
 				<thead>
 					<tr>
-						<th>Name</th>
+						<th>Title</th>
 						<th>Description</th> 
-						<th>User</th>
-						<th>Time stamp</th>
+						<th>Creator</th>
+						<th>Last update on</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -39,19 +39,26 @@
 							<td>{{topic.timestamp.strftime("%d %b %y %X")}}</td>
 						</tr>
 					{% endfor %}
-				</tbody>
-				
+				</tbody>	
 			</table>
 		</div>
-		
-		<form method="post" class="new_topic" >
-			<label>Name</label>
-			<input name="name"/>
-			</br>
-			<label>Description</label>
-			<input name="desc"/>
-			</br>
-			<button type="submit">Submit</button>
-		</form>
+		<div class="newtopic">
+			<h1>New Topic</h1>
+			{% with massages = get_flashed_messages() %}
+				{% if massages %}
+					{% for mesage in massages %}
+						<h3 style="color: red; text-align: center;">{{mesage}}</h3>
+					{% endfor %}
+					<br>
+				{% endif %}
+			{% endwith %}
+			<form method="post">
+				<p>Title</p>
+				<input type="text" name="name" placeholder="Ener Title" required/>
+				<p>Description</p>
+				<input type="text" name="desc" placeholder="Ener Description"/>
+				<input type="submit" value="Create" />
+			</form>
+		</div>
 	</body>
 </html>
