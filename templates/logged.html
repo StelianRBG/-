@@ -36,7 +36,7 @@
 							<td> <a href = "/topic/{{ topic.id }}"> {{topic.name}} </a> </td>
 							<td>{{topic.description}}</td>
 							<td>{{topic.user}}</td>
-							<td>{{topic.timestamp}}</td>
+							<td>{{topic.timestamp.strftime("%d %b %y %X")}}</td>
 						</tr>
 					{% endfor %}
 				</tbody>

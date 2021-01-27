@@ -1,4 +1,4 @@
-  
+
 <title>Posts</title>
 
 <form method="post">
@@ -12,16 +12,23 @@
 </form>
 
 
+
 <h1>{{ topic.name }}</h1>
 {% for post in posts %}
-	<b>Name:</b> {{ post.heading }}
+	<b>Name:</b>{{post.heading}}
 	<br/>
-	Author: {{ post.user }}
+	Author:{{post.user}}
 	<br/>
-	Content: {{ post.content }}
+	Content:{{post.content}}
+	<br/>
+	Timestamp:{{post.timestamp.strftime("%d %b %y %X")}}
+	<br/>
 	<br/>
 	{% if post.user == current_user.username %}
-		<button><a href = "/delete/{{ post.id }}" >Delete</a></button>
+		<button><a href = "/delete/{{ post.id }}" >Delete post</a></button>
+		<button><a href = "/update/{{ post.id }}" >Update post</a></button>
+	<br/>
 	<br/>
 	{% endif %}
 {% endfor %}
+
