@@ -10,7 +10,7 @@ header{
 	border-bottom: 1px solid white;
 }
 
-.forum{
+header h1{
 	position: absolute;
 	left: 1vw;
 	top: 1vh;
@@ -19,7 +19,7 @@ header{
 	color: #ffffff;
 }
 
-ul{
+header nav ul{
 	width: auto;
 	position: absolute;
 	margin-left: auto;
@@ -28,13 +28,13 @@ ul{
 	margin-top: 1vh;
 }
 
-li{
+header nav ul li{
 	display: inline-block;
 	padding: 0.5vw 1vw;
 	padding-bottom: 0.5vh;
 }
 
-a{
+header nav ul li a{
 	outline: none;
 	text-align: center;
 	color: #ffffff;
@@ -43,7 +43,8 @@ a{
 	font-size: 1.3vw;
 }
 
-a:hover{
+header nav ul li a:hover{
+	cursor: pointer;
 	color: #ffc107;
 	transition: 0.5s;
 }
@@ -52,116 +53,4 @@ body{
 	background-color: #303030;
 	overflow-y: auto;
 	overflow-x: hidden;
-}
-
-.topics{
-	background: #353535;
-	background-size: contain;
-	width: 40vw;
-	height: 91.3vh;
-	position: absolute;
-	margin-left: auto;
-	margin-right: auto;
-	left: 0;
-	right: 0;
-	text-align: center;
-}
-
-h2{
-	margin-top: 1wh;
-	font-size: 5vh;
-	font-family: 'Open Sans', sans-serif;
-	color: #fff;
-	font-weight: bold;
-	background: #292929;
-	border: 1px solid white;
-	height: 10vh;
-	padding-top: 2.5vh;
-}
-
-table{
-	font-family: arial, sans-serif;
-	border-collapse: collapse;
-	width: 100%;
-}
-  
-td, th{
-	border-bottom: 1px solid #000;
-	text-align: left;
-	padding: 8px;
-}
-  
-th{
-	background-color: #fb2525;
-	border-right: 1px solid #000;
-}
-
-tr:nth-child(even){
-	background-color: #fff;
-}
-
-tr:nth-child(odd){
-	background-color: #fff;
-}
-td a{
-	color: #000;
-}
-.newtopic{
-	position: absolute;
-	margin-left: auto;
-	margin-right: auto;
-	right: 10vw;
-	background:#282828;
-	width: 30vw ;
-	height: 55vh;
-	top: 10vw;
-	border: 2px solid #fb2525;
-	box-sizing: border-box;
-	padding: 5vw 3vw;
-	color: #fff;
-	font-family: sans-serif;
-}
-
-.newtopic h1{
-	padding: 0 0 0.5vw;
-	margin-top: auto;
-	top: 10wh;
-	text-align: center;
-	font-size: 2vw;
-}
-
-.newtopic p{
-	font-weight: bold;
-	font-size: 1.2vw;
-}
-.newtopic input{
-	width: 25vw;
-	margin-bottom: 2vh;
-}
-
-.newtopic input[type = "text"]{
-	border: none;
-	border-bottom: 1px solid #fff;
-	background: transparent;
-	outline: none;
-	height: 8vh;
-	color: #fff;
-	font-size: 0.9vw;
-}
-
-.newtopic input[type = "submit"]
-{
-	border: none;
-	outline: none;
-	height: 7vh;
-	background: #fb2525;
-	color: #fff;
-	font-size: 1vw;
-	border-radius: 2vw;
-}
-
-.newtopic input[type = "submit"]:hover{
-	cursor: pointer;
-	background: #ffc107;
-	color: #000;
 }

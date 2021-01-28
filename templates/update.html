@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/post.css') }}">
 		<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Open+Sans&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<title>&#9998Update Post</title>
@@ -19,11 +20,14 @@
 		</nav>
 	</header>
 	<body>
-		<form method="post">
-            <label>Update Content</label>
-            <input type-"text" name="new_content" value ="{{post.content}}"/>
-            </br>
-            <button type="submit">Submit</button>
-        </form>
+		<div class="update_post">
+			<h1>Update post</h1>
+			<form method="post">
+				<p>Update content</p>
+				<textarea name="new_content" cols="42" rows="12" maxlength="500" autofocus required>{{post.content}}</textarea>
+				</br>
+				<input type="submit" value="Update"/>
+			</form>
+		</div>
 	</body>
 </html>

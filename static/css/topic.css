@@ -1,0 +1,155 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+/*topics*/
+.topics{
+	background: #353535;
+	background-size: contain;
+	width: 50vw;
+	height: 91.3vh;
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+
+.topics h2{
+	margin-top: 1wh;
+	font-size: 5vh;
+	font-family: 'Open Sans', sans-serif;
+	color: #fff;
+	font-weight: bold;
+	background: #292929;
+	border: 1px solid white;
+	height: 10vh;
+	padding-top: 2.5vh;
+}
+
+.topics table{
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+  
+.topics td, th{
+	border-bottom: 1px solid #000;
+	text-align: left;
+	padding: 8px;
+}
+  
+.topics th{
+	background-color: #fb2525;
+	border-right: 1px solid #000;
+}
+
+.topics tr{
+	background-color: #fff;
+}
+
+.topics td a{
+    outline: none;
+    color: #000;
+    font-size: 1vw;
+    font-weight: bold;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.topics td a:hover{
+    color: #fb2525;
+	transition: 0.5s;
+}
+
+/*add button*/
+input[type = "button"]{
+	border: none;
+	outline: none;
+	height: 5vh;
+	width: 5vw;
+	background: #fb2525;
+	color: #fff;
+	font-size: 1vw;
+	border-radius: 2vw;
+	margin-bottom: 2vh;
+	position: absolute;
+	top: 4vh;
+	right: 5vw;
+}
+input[type = "button"]:hover{
+	cursor: pointer;
+	background: #ffc107;
+	color: #000;
+}
+
+/*new topi form*/
+.newtopic{
+	position: absolute;
+	margin-left: auto;
+    margin-right: auto;
+	right: 8vw;
+	background:#282828;
+	width: 30vw ;
+	height: 82vh;
+	top: 6vw;
+    border: 2px solid #fb2525;
+    border-radius: 2vw;
+	box-sizing: border-box;
+	padding: 1vw 3vw;
+	color: #fff;
+	font-family: sans-serif;
+}
+
+.newtopic h1{
+	padding: 0 0 0.5vw;
+	margin-top: auto;
+	top: 10wh;
+	text-align: center;
+	font-size: 2vw;
+}
+
+.newtopic p{
+	font-weight: bold;
+	font-size: 1.2vw;
+}
+.newtopic input{
+	width: 25vw;
+	margin-bottom: 2vh;
+}
+
+.newtopic input[type = "text"]{
+	border: none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	outline: none;
+	height: 8vh;
+	color: #fff;
+	font-size: 0.9vw;
+}
+
+.newtopic input[type = "submit"]
+{
+	border: none;
+	outline: none;
+	height: 7vh;
+	background: #fb2525;
+	color: #fff;
+	font-size: 1vw;
+	border-radius: 2vw;
+}
+
+.newtopic input[type = "submit"]:hover{
+	cursor: pointer;
+	background: #ffc107;
+	color: #000;
+	margin-bottom: 1vh;
+}
+.newtopic textarea{
+    resize: none;
+    outline: none;
+	font-size: 1vw;
+	margin-bottom: 3vh;
+}

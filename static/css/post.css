@@ -1,0 +1,241 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+/*full div*/
+.div{
+    margin-left: 2vw;
+    margin-top: 2vw;
+    width: 40vw;
+}
+/*post title*/
+.post_title{
+	background:#282828;
+	width: 40vw ;
+    border: 2px solid #fb2525;
+    border-radius: 2vw;
+	box-sizing: border-box;
+	padding: 1vw 1.5vw;
+	color: #fff;
+    font-family: sans-serif;
+    margin-bottom: 1vw;
+}
+
+.post_title h1{
+    font-size: 2vw;
+    text-align: center;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 1vh;
+}
+
+.post_title h2{
+    font-size: 1.3vw;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 1vh;
+}
+
+.post_title h2 span{
+    font-size: 1vw;
+    color:#d9d9d9;
+}
+
+.post_title h3{
+    float: right;
+    font-size: 1vw;
+    margin-bottom: 3vh;
+}
+
+.post_title h3 span{
+    font-size: 0.8vw;
+    color:#d9d9d9;
+}
+
+.post_title textarea{
+    border: 1px solid #fb2525;
+    border-radius: 1vw;
+    background: #fafafa;
+    resize: none;
+    font-size: 1vw;
+    outline: none;
+    padding: 1vw;
+    text-align: justify;
+    
+}
+/*posts*/
+.posts{
+	background:#282828;
+	width: 40vw ;
+    border: 2px solid #fb2525;
+    border-radius: 2vw;
+	box-sizing: border-box;
+	padding: 2vw 1.5vw;
+	color: #fff;
+	font-family: sans-serif;
+}
+
+.post{
+    margin-bottom: 3vw;
+}
+
+.post h2{
+    font-size: 1vw;
+    margin-bottom: 1vw;
+}
+
+.post h2 span{
+    background-color: #fb2525;
+    border-radius: 2vw;
+    width: 10vw;
+}
+
+.post h2 span:hover{
+    background-color: #ffc107;
+    color: #000;
+}
+
+.post textarea{
+    border: 1px solid #fb2525;
+    border-radius: 1vw;
+    background: #fafafa;
+    resize: none;
+    font-size: 1vw;
+    outline: none;
+    padding: 1vw;
+    text-align: justify;
+    margin-bottom: 1vw;
+}
+.post h4{
+    text-align:right;
+    margin-bottom: 0.5vw;  
+}
+.post input{
+    color: #fff;
+    width: 7vw;
+	margin-bottom: 2vh;
+	border: none;
+	outline: none;
+	height: 7vh;
+	background: #fb2525;
+	font-size: 1vw;
+	border-radius: 2vw;
+}
+.post input:hover{
+    cursor: pointer;
+    background: #ffc107;
+    color: #000;
+}
+
+/*new post*/
+.new_post{
+    position: absolute;
+	margin-left: auto;
+    margin-right: auto;
+	right: 10vw;
+	background:#282828;
+	width: 30vw ;
+	top: 7vw;
+    border: 2px solid #fb2525;
+    border-radius: 2vw;
+	box-sizing: border-box;
+	padding: 1vw 3vw;
+	color: #fff;
+	font-family: sans-serif;
+}
+
+.new_post h1{
+    padding: 0 0 0.5vw;
+	margin-top: auto;
+	top: 10wh;
+	text-align: center;
+	font-size: 2vw;
+}
+
+.new_post p{
+	font-weight: bold;
+	font-size: 1.2vw;
+}
+
+.new_post input[type = "submit"]
+{
+    width: 25vw;
+	margin-bottom: 2vh;
+	border: none;
+	outline: none;
+	height: 7vh;
+	background: #fb2525;
+	color: #fff;
+	font-size: 1vw;
+	border-radius: 2vw;
+}
+
+.new_post input[type = "submit"]:hover{
+	cursor: pointer;
+	background: #ffc107;
+	color: #000;
+	margin-bottom: 1vh;
+}
+.new_post textarea{
+    resize: none;
+    outline: none;
+	font-size: 1vw;
+	margin-bottom: 3vh;
+}
+
+
+/*update post*/
+.update_post{
+    position: absolute;
+	margin-left: auto;
+    margin-right: auto;
+	left: 3vw;
+	background:#282828;
+	width: 30vw ;
+	top: 7vw;
+    border: 2px solid #fb2525;
+    border-radius: 2vw;
+	box-sizing: border-box;
+	padding: 1vw 3vw;
+	color: #fff;
+	font-family: sans-serif;
+}
+
+.update_post h1{
+    padding: 0 0 0.5vw;
+	margin-top: auto;
+	top: 10wh;
+	text-align: center;
+	font-size: 2vw;
+}
+
+.update_post p{
+	font-weight: bold;
+	font-size: 1.2vw;
+}
+
+.update_post input[type = "submit"]
+{
+    width: 25vw;
+	margin-bottom: 2vh;
+	border: none;
+	outline: none;
+	height: 7vh;
+	background: #fb2525;
+	color: #fff;
+	font-size: 1vw;
+	border-radius: 2vw;
+}
+
+.update_post input[type = "submit"]:hover{
+	cursor: pointer;
+	background: #ffc107;
+	color: #000;
+	margin-bottom: 1vh;
+}
+
+.update_post textarea{
+    resize: none;
+    outline: none;
+	font-size: 1vw;
+	margin-bottom: 3vh;
+}

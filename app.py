@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import hashlib
 from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
 from datetime import datetime
+from dateutil.tz import gettz
 
 
 #app configoration
@@ -20,19 +21,19 @@ login_manager.login_view = 'login'
 
 #user 
 class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    username = db.Column(db.String(20), nullable = False)
-    password = db.Column(db.String(32), nullable = False)
+	id = db.Column(db.Integer, primary_key = True)
+	username = db.Column(db.String(20), nullable = False)
+	password = db.Column(db.String(32), nullable = False)
 
 
 #category
 class Topic(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(50), nullable = False)
-    description = db.Column(db.String(200), nullable = False)
-    user = db.Column(db.String(20), nullable = False)
-    timestamp = db.Column(db.DateTime, nullable = False, default = datetime.now())
-
+	id = db.Column(db.Integer, primary_key = True)
+	name = db.Column(db.String(50), nullable = False)
+	description = db.Column(db.String(100), nullable = False)
+	user = db.Column(db.String(20), nullable = False)
+	timestamp = db.Column(db.DateTime, nullable = False, default = datetime.now(gettz("Europe/Sofia")))
+	first_post = db.Column(db.String, nullable = False)
 
 #post
 class Post(db.Model):
@@ -40,18 +41,18 @@ class Post(db.Model):
 	content = db.Column(db.String, nullable = False)
 	topic = db.Column(db.Integer, nullable = True)
 	user = db.Column(db.String, nullable = True)
-	timestamp = db.Column(db.DateTime, nullable = False, default = datetime.now())
-	updateon = db.Column(db.DateTime, nullable = False, default = datetime.now())
+	timestamp = db.Column(db.DateTime, nullable = False, default = datetime.now(gettz("Europe/Sofia")))
+	updateon = db.Column(db.DateTime, nullable = False, default = datetime.now(gettz("Europe/Sofia")))
 
 
 #login_manager
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+	return User.query.get(int(user_id))
 
 
 #home page
-@app.route('/')
+@app.route('/')	
 def main():
 	logout_user()
 	return render_template('home.html', topics = Topic.query.all())
@@ -66,13 +67,13 @@ def logged_page():
 	else:
 		name = request.form['name']
 		desc = request.form['desc']
+		first_post = request.form['first_post']
 		if(len(name) > 50 or len(desc) > 200):
 			flash("Your input is invalid!")
 			return redirect('/logged')
 		if len(desc) == 0:
 			desc = "Nothing"
-		record = Topic(name = name, description = desc, user = current_user.username)
-
+		record = Topic(name = name, description = desc, user = current_user.username, first_post =first_post)
 		db.session.add(record)
 		db.session.commit()
 		return redirect('/logged')
@@ -105,10 +106,6 @@ def reg_page():
 		return render_template('registration.html')
 	else:
 		username = request.form['username']
-		if len(username) > 20:
-			flash('Password must not be more than 20 characters long!')
-			return redirect('/signup')
-
 		user = User.query.filter_by(username = username).first()
 
 		if not user:
@@ -121,10 +118,6 @@ def reg_page():
 			if len(password) < 8:
 				flash('Try again! Password must be 8 characters at least!')
 				return redirect('/signup')
-			if len(password) > 32:
-				flash('Try again! Password must be 32 characters at most!')
-				return redirect('/signup')
-			
 			password = hashlib.sha256(password.encode('utf-8')).hexdigest()
 			record = User(username=username, password=password)
 			
@@ -132,7 +125,6 @@ def reg_page():
 			db.session.commit()
 			
 			login_user(record)
-			flash('You have been successfully registered')
 			return redirect('/logged')
 		else:
 			flash('Try again! This username has already been taken!')
@@ -143,7 +135,7 @@ def reg_page():
 @app.route('/see/<int:id>')
 def see_posts(id):
 	topic = Topic.query.filter_by(id = id).first()
-	return render_template('posts.html', topic = topic, posts = Post.query.filter_by(topic = id).all())
+	return render_template('posts.html', topic = topic, posts = Post.query.filter_by(topic = id).order_by(Post.updateon.asc()).all())
 
 
 #logged user sees posts (can make post)
@@ -152,7 +144,7 @@ def see_posts(id):
 def list_posts(id):
 	if request.method == 'GET':
 		topic = Topic.query.filter_by(id = id).first()
-		return render_template('loggedposts.html', topic = topic, posts = Post.query.filter_by(topic = id).all(), profile = current_user.username)
+		return render_template('loggedposts.html', topic = topic, posts = Post.query.filter_by(topic = id).order_by(Post.updateon.asc()).all(), profile = current_user.username)
 	else:
 		content = request.form['content']
 		record = Post(content = content, topic = id, user = current_user.username)
@@ -160,6 +152,8 @@ def list_posts(id):
 		db.session.commit()
 
 		topic = Topic.query.filter_by(id = id).first()
+		topic.timestamp = datetime.now(gettz("Europe/Sofia"))
+		db.session.commit()
 		return redirect(url_for('list_posts', id = topic.id))
 
 
@@ -171,12 +165,12 @@ def update(id):
 	red = post.topic
 	topic = Topic.query.filter_by(id = red).first()
 	if request.method == 'GET':
-		return render_template('update.html', post = post)
+		return render_template('update.html', post = post, profile = current_user.username)
 	else:
 		post.content = request.form['new_content']
-		post.updateon = datetime.now()
+		post.updateon = datetime.now(gettz("Europe/Sofia"))
 		db.session.commit()
-		topic.timestamp = datetime.now()
+		topic.timestamp = datetime.now(gettz("Europe/Sofia"))
 		db.session.commit()
 		return redirect(url_for('list_posts', id = red))
 
@@ -196,5 +190,5 @@ def delete(id):
 
 #main
 if __name__ == '__main__':
-    db.create_all()
-    app.run(debug=True)
+	db.create_all()
+	app.run(debug=True)

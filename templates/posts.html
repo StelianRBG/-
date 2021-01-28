@@ -4,12 +4,13 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/post.css') }}">
 		<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Open+Sans&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<title>&#128221Post</title>
 	</head>
 	<header>
-		<h1>FORUM</h1>
+		<h1 class="forum">FORUM</h1>
 		<nav>
 			<ul>
 				<li><a href="/"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
@@ -19,17 +20,30 @@
 		</nav>
 	</header>
 	<body>
-		<h3>{{ topic.name }}</h3>
-		{% for post in posts %}
-			Author:{{post.user}}
-			<br/>
-			Content:{{post.content}}
-			<br/>
-			Timestamp:{{post.timestamp.strftime("%d %b %y %X")}}
-			<br>
-			Update on: {{post.updateon.strftime("%d %b %y %X")}}
-			<br/>
-			<br/>
-		{% endfor %}
+		<div class = "div" >
+			<div class="post_title">
+				<h1>{{ topic.name }}</h1>
+				<textarea name="" id="" cols="59" rows="2"readonly>{{ topic.description}}</textarea>
+				<br>
+				<br>
+				<h2>Author: <span>{{ topic.user }}</span></h2> 
+				<h3>Last updated on: <span>{{ topic.timestamp.strftime("%d %b %y %X")}}</span></h3>
+				<br>
+				<textarea name="" id="" cols="59" rows="10"readonly>{{ topic.first_post}}</textarea>
+			</div>
+			{% if posts %}
+				<div class="posts">
+					{% for post in posts %}
+						<div class="post">
+							<h2>><span>{{post.user}}</span></h2>
+							<textarea name="" id="" cols="59" rows="10"readonly>{{post.content}}</textarea>
+							<h4>Published on : {{post.timestamp.strftime("%d %b %y %X")}}</h4>
+							<h4>Last updated on: {{post.updateon.strftime("%d %b %y %X")}}</h4>
+							<hr>
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
 	</body>
 </html>

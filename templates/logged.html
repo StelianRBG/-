@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/topic.css') }}">
 		<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Open+Sans&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<title> &#127968Forum</title>
@@ -19,15 +20,16 @@
 		</nav>
 	</header>
 	<body>
-		<div class="topics" style="right: 30vw;">
+		<div class="topics" id="topics">
 			<h2>Topics:</h2>
+			<input type="button" name="answer" id="div" value="Add topic" onclick="showDiv()">
 			<table class="styled-table">
 				<thead>
 					<tr>
 						<th>Title</th>
 						<th>Description</th> 
-						<th>Creator</th>
-						<th>Last update on</th>
+						<th>Author</th>
+						<th style="width: 6vw;">Last update on</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -42,7 +44,7 @@
 				</tbody>	
 			</table>
 		</div>
-		<div class="newtopic">
+		<div class="newtopic" id="newtopics" style=" display: none;">
 			<h1>New Topic</h1>
 			{% with massages = get_flashed_messages() %}
 				{% if massages %}
@@ -54,11 +56,23 @@
 			{% endwith %}
 			<form method="post">
 				<p>Title</p>
-				<input type="text" name="name" placeholder="Ener Title" required/>
+				<input type="text" name="name" placeholder="Ener Title" maxlength="50" required/>
 				<p>Description</p>
-				<input type="text" name="desc" placeholder="Ener Description"/>
-				<input type="submit" value="Create" />
+				<input type="text" name="desc" placeholder="Ener Description" maxlength="100"/>
+				<p>First Post</p>
+				<br>
+				<textarea name="first_post" cols="42" rows="12" maxlength="500" autofocus required></textarea>
+				<br>
+				<input type="submit" value="Add topic" />
 			</form>
 		</div>
+		<script>
+			function showDiv()
+			{
+				document.getElementById('newtopics').style.display = "block";
+				document.getElementById('div').style.display = "none";
+				document.getElementById('topics').style.right = "35vw"
+			}
+		</script>
 	</body>
 </html>

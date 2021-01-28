@@ -79,5 +79,6 @@ h1{
 }
 
 .loginbox a:hover{
+	cursor: pointer;
 	color: #ffc107;
 }
