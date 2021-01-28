@@ -12,7 +12,9 @@ venv\Script\activate
 pip install -r requirements.txt
 
 set FLASK_APP=app.py
-set FLASK_ENV=development 
+
+set FLASK_ENV=development
+
 python -m flask run
 '''
 
