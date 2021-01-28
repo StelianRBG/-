@@ -133,7 +133,8 @@
     margin-right: auto;
 	right: 10vw;
 	background:#282828;
-	width: 30vw ;
+	width: 30vw;
+	height: 28vw;
 	top: 7vw;
     border: 2px solid #fb2525;
     border-radius: 2vw;
@@ -191,6 +192,7 @@
 	left: 3vw;
 	background:#282828;
 	width: 30vw ;
+	height: 27vw;
 	top: 7vw;
     border: 2px solid #fb2525;
     border-radius: 2vw;
